@@ -1,2 +1,5 @@
 venv/
 .vscode/
+*.json
+*.png
+__pycache__

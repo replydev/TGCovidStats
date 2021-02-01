@@ -2,6 +2,7 @@ from urllib.request import urlopen
 from pathlib import Path
 import shutil
 import logging
+import hashlib
 
 def download_file(url: str, filename: Path):
     logging.debug("Downloading %s from %s" % (filename,url))
@@ -23,5 +24,11 @@ def build_regex_from_list(l: list):
     s[len(s) - 1] = ")" #replace last char
     s += "$"
     return s
+
+def sha1_hex(s: str):
+    return hashlib.sha1(s.encode("utf-8")).hexdigest()
     
+def create_folder_if_not_exists(folder_path: str):
+    p = Path(folder_path)
+    p.mkdir(exist_ok=True)
     
