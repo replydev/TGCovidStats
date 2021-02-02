@@ -1,5 +1,6 @@
 from pathlib import Path
 import logging
+import datetime
 
 from TgCovidStats.Config import Config
 from TgCovidStats.Utils import create_folder_if_not_exists
@@ -17,8 +18,7 @@ def create_folders():
 def init_logger():
     logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
     rootLogger = logging.getLogger()
-
-    fileHandler = logging.FileHandler("{0}/{1}.log".format("logs", "%(asctime)s"))
+    fileHandler = logging.FileHandler("{0}/{1}.log".format("logs", datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")))
     fileHandler.setFormatter(logFormatter)
     fileHandler.setLevel(logging.INFO)
     rootLogger.addHandler(fileHandler)
