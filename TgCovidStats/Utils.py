@@ -16,15 +16,6 @@ def write_to_file(text: str,filename: Path):
         f.write(text)
         f.close()
 
-def build_regex_from_list(l: list):
-    s = "^("
-    for element in l:
-        s += element
-        s += "|"
-    s[len(s) - 1] = ")" #replace last char
-    s += "$"
-    return s
-
 def sha1_hex(s: str):
     return hashlib.sha1(s.encode("utf-8")).hexdigest()
     

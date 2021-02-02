@@ -2,7 +2,7 @@ import logging
 import json
 from pathlib import Path
 
-from Utils import write_to_file
+from TgCovidStats.Utils import write_to_file
 
 class Config:
     def __init__(self,config_dict: dict):

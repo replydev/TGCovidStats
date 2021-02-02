@@ -1,8 +1,6 @@
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler,CallbackQueryHandler, CallbackContext,Filters
 import logging
-
-from Utils import build_regex_from_list
  
 class TGBot:
 
@@ -14,11 +12,6 @@ class TGBot:
             command = command[1:]
         logging.debug("Adding command handler \"%s\"" % (command))
         self.updater.dispatcher.add_handler(CommandHandler(command,function))
-    
-    @DeprecationWarning
-    def add_message_handler(self,function,messages_list):
-        regex = build_regex_from_list(messages_list) # TODO Use messages list also in BotCommands.py
-        self.updater.dispatcher.add_handler(MessageHandler(Filters.regex(regex),function))
     
     def add_callback_handler(self,function):
         self.updater.dispatcher.add_handler(CallbackQueryHandler(function))

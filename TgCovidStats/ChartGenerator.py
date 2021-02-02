@@ -6,7 +6,7 @@ import dateparser
 import logging
 from pathlib import Path
 
-from Utils import sha1_hex
+from TgCovidStats.Utils import sha1_hex
 
 class ChartGenerator:
 

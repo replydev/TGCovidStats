@@ -1,8 +1,8 @@
 from pathlib import Path
 import logging
 
-from Config import Config
-from Utils import download_file
+from TgCovidStats.Config import Config
+from TgCovidStats.Utils import download_file
 
 class DataFetcher:
 

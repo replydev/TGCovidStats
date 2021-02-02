@@ -1,7 +1,7 @@
 from pathlib import Path
 import logging
 
-from DataLoader import DataLoader
+from TgCovidStats.DataLoader import DataLoader
 
 class Memory:
 

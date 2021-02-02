@@ -1,4 +1,4 @@
-from InlineKeyboards import get_start_keyboard
+from TgCovidStats.InlineKeyboards import get_start_keyboard
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 
@@ -30,7 +30,8 @@ def callback_handler(update: Update, callback_context: CallbackContext):
         query.data == "terapia_intensiva" or \
         query.data == "totale_ospedalizzati" or \
         query.data == "isolamento_domiciliare":
-            query.edit_message_text("Ahahahahah",reply_markup=get_start_keyboard())
+            #query.edit_message_text("Ahahahahah",reply_markup=get_start_keyboard())
+            query.edit_message_media(photo=open("charts/hey.png",'rb'),reply_markup=get_start_keyboard())
 
 
     """

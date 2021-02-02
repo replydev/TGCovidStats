@@ -1,13 +1,13 @@
 from pathlib import Path
 
-from DataFetcher import DataFetcher
-from DataLoader import DataLoader
-from ChartGenerator import ChartGenerator
-from Config import Config,load_config
-from Utils import create_folder_if_not_exists
-from TGBot import TGBot
-from BotCommands import start_command,callback_handler
-from Memory import Memory
+from TgCovidStats.DataFetcher import DataFetcher
+from TgCovidStats.DataLoader import DataLoader
+from TgCovidStats.ChartGenerator import ChartGenerator
+from TgCovidStats.Config import Config,load_config
+from TgCovidStats.Utils import create_folder_if_not_exists
+from TgCovidStats.TGBot import TGBot
+from TgCovidStats.BotCommands import start_command,callback_handler
+from TgCovidStats.Memory import Memory
 
 
 def create_folders():
@@ -20,9 +20,6 @@ def init_bot(config: Config):
     bot.add_command_handler("/start",start_command)
     bot.add_callback_handler(callback_handler)
     bot.start()
-    
-
-
 
 def main():
     create_folders()
