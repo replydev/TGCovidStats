@@ -5,7 +5,7 @@ import logging
 class TGBot:
 
     def __init__(self,config):
-        self.updater = Updater(config["bot_token"])
+        self.updater = Updater(config.bot_token)
 
     def add_command_handler(self,command: str,function):
         if command.startswith('/'):

@@ -1,39 +1,44 @@
 from pathlib import Path
+import logging
 
-from TgCovidStats.DataFetcher import DataFetcher
-from TgCovidStats.DataLoader import DataLoader
-from TgCovidStats.ChartGenerator import ChartGenerator
-from TgCovidStats.Config import Config,load_config
+from TgCovidStats.Config import Config
 from TgCovidStats.Utils import create_folder_if_not_exists
 from TgCovidStats.TGBot import TGBot
 from TgCovidStats.BotCommands import start_command,callback_handler
-from TgCovidStats.Memory import Memory
+from TgCovidStats.Memory import init_memory,get_config
+from TgCovidStats.Database.User_Manager import UserManager
 
 
 def create_folders():
     create_folder_if_not_exists("data/")
     create_folder_if_not_exists("charts/")
+    create_folder_if_not_exists("logs/")
 
+def init_logger():
+    logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+    rootLogger = logging.getLogger()
 
-def init_bot(config: Config):
-    bot = TGBot(config)
+    fileHandler = logging.FileHandler("{0}/{1}.log".format("logs", "%(asctime)s"))
+    fileHandler.setFormatter(logFormatter)
+    fileHandler.setLevel(logging.INFO)
+    rootLogger.addHandler(fileHandler)
+
+    consoleHandler = logging.StreamHandler()
+    consoleHandler.setFormatter(logFormatter)
+    consoleHandler.setLevel(logging.INFO)
+    rootLogger.addHandler(consoleHandler)
+
+def init_bot():
+    bot = TGBot(get_config())
     bot.add_command_handler("/start",start_command)
     bot.add_callback_handler(callback_handler)
     bot.start()
 
 def main():
     create_folders()
-    config = load_config("config.json")
-    if config is None:
-        return
-    data_fetcher = DataFetcher(config)
-    data_fetcher.download()
-    memory = Memory()
-    init_bot(config)
-    #chart_generator = ChartGenerator(loaded_italy,"terapia_intensiva",config["bot_username"])
-    #chart_generator.gen_chart()
-
-
+    init_logger()
+    init_memory()
+    init_bot()
 
 
 if __name__ == "__main__":

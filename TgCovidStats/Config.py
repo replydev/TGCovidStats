@@ -12,6 +12,9 @@ class Config:
         self.bot_token: str = config_dict["bot_token"]
         self.bot_username: str = config_dict["bot_username"]
         self.force_download: bool = config_dict["force_download"]
+        #self.database_filename: str =  config_dict["database_filename"]
+        self.database_username: str = config_dict["database_username"]
+        self.database_password: str = config_dict["database_password"]
         
 def load_config(filepath: Path):
     logging.info("Loading config...")
@@ -26,6 +29,8 @@ def load_config(filepath: Path):
 def create_sample_config(filepath: Path):
     logging.info("Creating sample config, edit the bot_token attribute otherwise the programm will not work")
     sample_config = {
+        "database_username": "DATABASE_USERNAME",
+        "database_password": "DATABASE_PASSWORD",
         "bot_token": "BOT_TOKEN",
         "bot_username": "BOT_USERNAME",
         "italy_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json",

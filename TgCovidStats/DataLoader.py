@@ -8,7 +8,6 @@ class DataLoader:
         self.filepath = filepath
 
     def load(self):
-        logging.debug("Tring to load %s" % (self.filepath))
         with open(self.filepath) as f:
             j = f.read()
             f.close()

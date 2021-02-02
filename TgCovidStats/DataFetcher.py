@@ -18,7 +18,7 @@ class DataFetcher:
         return self.italy_data_path.exists() and self.regions_data_path.exists() and self.regions_data_path.exists()
 
     def download(self):
-        if not self.all_files_downloaded() or self.config["force_download"]:
+        if not self.all_files_downloaded() or self.config.force_download:
             logging.info("Downloading italy data...")
             download_file(self.config["italy_link"],self.italy_data_path)
             logging.info("Downloading regions data...")

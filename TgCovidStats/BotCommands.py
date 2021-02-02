@@ -1,6 +1,8 @@
-from TgCovidStats.InlineKeyboards import get_start_keyboard
+from TgCovidStats.InlineKeyboards import get_start_keyboard,get_regions_keyboard
+from TgCovidStats.Memory import get_user_manager,get_italy,get_regions,get_province,get_config
+from TgCovidStats.ChartGenerator import ChartGenerator
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update,InputFile,InputMediaPhoto
 
 from telegram.ext import (
     Updater,
@@ -11,18 +13,25 @@ from telegram.ext import (
 )
 
 def start_command(update: Update, context: CallbackContext):
-    update.message.reply_text("Ciao, scegli un opzione: ", reply_markup=get_start_keyboard())
+    user_manager = get_user_manager()
+    user_manager.insert_user(update.effective_user.id)
+    chart_generator = ChartGenerator(get_italy(),"totale_casi",get_config().bot_username,"italia")
+    filename = chart_generator.gen_chart()
+    update.message.reply_photo(photo=open(filename,'rb'), reply_markup=get_start_keyboard())
 
 def callback_handler(update: Update, callback_context: CallbackContext):
+    user_manager = get_user_manager()
+    user = user_manager.get_user(update.effective_user.id) #we are already sure that the user exists
+    
     query = update.callback_query
     query.answer()
-
     if query.data == "totale_positivi" or \
         query.data == "variazione_totale_positivi" or \
         query.data == "dimessi_guariti" or \
         query.data == "deceduti" or \
-        query.data == "totale_casi" or \
+        query.data == "totale_positivi" or \
         query.data == "nuovi_positivi" or \
+        query.data == "totale_casi" or \
         query.data == "tamponi" or \
         query.data == "tamponi_test_molecolare" or \
         query.data == "tamponi_test_antigenico_rapido" or \
@@ -30,39 +39,50 @@ def callback_handler(update: Update, callback_context: CallbackContext):
         query.data == "terapia_intensiva" or \
         query.data == "totale_ospedalizzati" or \
         query.data == "isolamento_domiciliare":
-            #query.edit_message_text("Ahahahahah",reply_markup=get_start_keyboard())
-            query.edit_message_media(photo=open("charts/hey.png",'rb'),reply_markup=get_start_keyboard())
+            if user.selected_region == "":
+                l = get_italy()
+            else:
+                l = get_regions()
+            chart_generator = ChartGenerator(l,query.data,get_config().bot_username,user.selected_region)
+            filename = chart_generator.gen_chart()
+            query.edit_message_media(media=InputMediaPhoto(media=open(filename,'rb')),reply_markup=get_start_keyboard())
 
-
-    """
+    
     elif query.data == "seleziona_regione":
+        query.edit_message_reply_markup(reply_markup=get_regions_keyboard())
     elif query.data == "seleziona_provincia":
+        pass # TODO Implement
     elif query.data == "impostazioni":
+        pass # TODO Implement
     elif query.data == "codice_sorgente":
-    elif query.data == "abruzzo":
-    elif query.data == "basilicata":
-    elif query.data == "bolzano":
-    elif query.data == "calabria":
-    elif query.data == "campania":
-    elif query.data == "emilia-romagna":
-    elif query.data == "friuli_venezia_giulia":
-    elif query.data == "italia":
-    elif query.data == "lazio":
-    elif query.data == "liguria":
-    elif query.data == "lombardia":
-    elif query.data == "marche":
-    elif query.data == "molise":
-    elif query.data == "piemonte":
-    elif query.data == "puglia":
-    elif query.data == "sicilia":
-    elif query.data == "sardegna":
-    elif query.data == "toscana":
-    elif query.data == "trento":
-    elif query.data == "umbria":
-    elif query.data == "valle_d_aosta":
-    elif query.data == "veneto":
+        pass # TODO Implement
+    elif query.data == "abruzzo" or \
+    query.data == "basilicata" or \
+    query.data == "bolzano" or \
+    query.data == "calabria" or \
+    query.data == "campania" or \
+    query.data == "emilia-romagna" or \
+    query.data == "friuli_venezia_giulia" or \
+    query.data == "italia" or \
+    query.data == "lazio" or \
+    query.data == "liguria" or \
+    query.data == "lombardia" or \
+    query.data == "marche" or \
+    query.data == "molise" or \
+    query.data == "piemonte" or \
+    query.data == "puglia" or \
+    query.data == "sicilia" or \
+    query.data == "sardegna" or \
+    query.data == "toscana" or \
+    query.data == "trento" or \
+    query.data == "umbria" or \
+    query.data == "valle_d_aosta" or \
+    query.data == "veneto":
+        user_manager.update_region(update.effective_user.id,query.data)
+        query.edit_message_reply_markup(reply_markup=get_start_keyboard())
     elif query.data == "torna_indietro":
-    elif query.data == "":
+        query.edit_message_reply_markup(reply_markup=get_start_keyboard())
+    """
     elif query.data == "chieti":
     elif query.data == "l_aquila":
     elif query.data == "pescara":

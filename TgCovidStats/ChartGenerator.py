@@ -1,4 +1,3 @@
-
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,22 +9,34 @@ from TgCovidStats.Utils import sha1_hex
 
 class ChartGenerator:
 
-    def __init__(self,data: list,attribute: str,bot_username,region_name="Italia"):
+    def __init__(self,data: list,attribute: str,bot_username,region_name):
         self.data = data
         self.attribute = attribute
         self.bot_username = bot_username
-        self.region_name = region_name
+        if region_name is None:
+            self.region_name = "italia"
+        else:
+            self.region_name = region_name
         
     def get_dates(self):
         dates = []
         for element in self.data:
-            dates.append(dateparser.parse(element["data"]))
+            if self.region_name != "italia":
+                if self.region_name.lower() == element["denominazione_regione"].lower():
+                    dates.append(dateparser.parse(element["data"]))
+            else:
+                dates.append(dateparser.parse(element["data"]))
+            
         return dates
 
     def get_values(self):
         values = []
         for element in self.data:
-            values.append(element[self.attribute])
+            if self.region_name != "italia":
+                if self.region_name.lower() == element["denominazione_regione"].lower():
+                    values.append(element[self.attribute])
+            else:
+                values.append(element[self.attribute])
         return values
 
     def get_title(self):
@@ -46,11 +57,17 @@ class ChartGenerator:
         elif self.attribute == "dimessi_guariti":
             title = "Dimessi guariti"
         elif self.attribute == "deceduti":
-            title = "Deceduti"
+            title = "Decessi"
         elif self.attribute == "totale_casi":
             title = "Totale casi"
+        elif self.attribute == "nuovi_positivi":
+            title = "Nuovi casi"
         elif self.attribute == "tamponi":
-            title = "tamponi"
+            title = "Tamponi"
+        elif self.attribute == "tamponi_test_molecolare":
+            title = "Tamponi test molecolare"
+        elif self.attribute == "tamponi_test_antigenico_rapido":
+            title = "Tamponi test antigenico"
         else:
             return None
 
@@ -68,7 +85,7 @@ class ChartGenerator:
         charts_filename = chart_hash + ".png"
         if self.chart_exist(charts_filename):
             logging.debug("Chart already cached: %s" % (chart_title))
-            return Path("charts/").joinpath(charts_filename)
+            return "charts/" + charts_filename
         
         logging.debug("Generating chart: %s" % (self.attribute))
         dates = self.get_dates()
@@ -82,7 +99,9 @@ class ChartGenerator:
         ax.set(xlabel='Data', ylabel='Valore', title=chart_title)
         ax.grid()
 
-        fig.savefig("charts/" + charts_filename)
-        plt.show()
+        path = "charts/" + charts_filename
+        fig.savefig(path)
+        return path
+        #plt.show()
 
         
