@@ -109,7 +109,7 @@ def get_regions_keyboard():
         ],
         [
             InlineKeyboardButton("Veneto", callback_data="veneto"),
-            InlineKeyboardButton("Torna indietro", callback_data="torna_indietro"),
+            InlineKeyboardButton("🔙 Torna indietro", callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -129,7 +129,7 @@ def get_abruzzo_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -145,7 +145,7 @@ def get_basilicata_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -160,7 +160,7 @@ def get_bolzano_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -204,7 +204,7 @@ def get_campania_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -235,7 +235,7 @@ def get_emilia_romagna_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -274,7 +274,7 @@ def get_lazio_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -294,7 +294,7 @@ def get_liguria_leyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -332,7 +332,7 @@ def get_lombardia_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -353,7 +353,7 @@ def get_marche_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -371,7 +371,7 @@ def get_molise_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -401,7 +401,7 @@ def get_piemonte_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -427,7 +427,7 @@ def get_puglia_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -451,7 +451,7 @@ def get_sardegna_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -480,7 +480,7 @@ def get_sicilia_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -512,7 +512,7 @@ def get_toscana_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -527,7 +527,7 @@ def get_trento_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -543,7 +543,7 @@ def get_umbria_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -558,7 +558,7 @@ def get_valle_d_aosta_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -583,9 +583,24 @@ def get_veneto_keyboard():
         [
             InlineKeyboardButton(
                 "Nessuna provincia", callback_data="nessuna_provincia"
-            ),
+            ), InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
+def get_settings_keyboard(notify: bool):
+    keyboard = [
+        [
+            InlineKeyboardButton("🔔 Invia notifiche",callback_data="useless"),
+        ],
+        [
+            InlineKeyboardButton(text = "✅ Si" if notify else "Si",callback_data="enable_notifications"),
+            InlineKeyboardButton(text = "No" if notify else "✅ No",callback_data="disable_notifications"),
+        ],
+        [
+            InlineKeyboardButton("🔙 Torna indietro",callback_data="torna_indietro"),
+        ],
+    ]
+    reply_keyboard = InlineKeyboardMarkup(keyboard)
+    return reply_keyboard

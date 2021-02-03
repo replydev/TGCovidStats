@@ -13,7 +13,7 @@ class User(Base):
     user_id = Column(Integer,primary_key=True)
     selected_region = Column(Integer,default=0)
     selected_province = Column(Integer,default=0)
-    send_notification = Column(Boolean,default=True)
+    send_notifications = Column(Boolean,default=True)
 
 class UserManager:
 
@@ -52,6 +52,13 @@ class UserManager:
         session = self.Session()
         user = session.query(User).filter(User.user_id==user_id).first()
         user.selected_province = value
+        session.commit()
+        session.close()
+    
+    def update_send_notifications(self,user_id: int, value: bool):
+        session = self.Session()
+        user = user = session.query(User).filter(User.user_id==user_id).first()
+        user.send_notifications = value
         session.commit()
         session.close()
     

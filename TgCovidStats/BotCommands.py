@@ -13,6 +13,12 @@ from telegram.ext import (
     CallbackContext,
 )
 
+def update_user_notifications(id: int,value: bool, query):
+    user_manager = get_user_manager()
+    user_manager.update_send_notifications(id,value)
+    user = user_manager.get_user(id)
+    query.edit_message_reply_markup(reply_markup=get_settings_keyboard(user.send_notifications))
+
 def update_user(id: int,region: int,province: int, query):
     user_manager = get_user_manager()
     user_manager.update_region(id,region)
@@ -124,7 +130,11 @@ def callback_handler(update: Update, callback_context: CallbackContext):
             query.answer()
 
     elif query.data == "impostazioni":
-        pass # TODO Implement
+        query.edit_message_reply_markup(reply_markup=get_settings_keyboard(user.send_notifications))
+    elif query.data == "enable_notifications":
+        update_user_notifications(id,True,query)
+    elif query.data == "disable_notifications":
+        update_user_notifications(id,False,query)
     elif query.data == "codice_sorgente":
         pass # TODO Implement
     elif query.data == "abruzzo":
