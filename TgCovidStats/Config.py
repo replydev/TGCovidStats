@@ -12,7 +12,6 @@ class Config:
         self.bot_token: str = config_dict["bot_token"]
         self.bot_username: str = config_dict["bot_username"]
         self.force_download: bool = config_dict["force_download"]
-        #self.database_filename: str =  config_dict["database_filename"]
         self.database_username: str = config_dict["database_username"]
         self.database_password: str = config_dict["database_password"]
         
@@ -38,6 +37,6 @@ def create_sample_config(filepath: Path):
         "province_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json",
         "force_download": False,
     }
-    j = json.dumps(sample_config)
+    j = json.dumps(sample_config,indent=4)
     write_to_file(j,filepath)
 

@@ -37,7 +37,9 @@ def init_bot():
 def main():
     create_folders()
     init_logger()
-    init_memory()
+    if not init_memory():
+        logging.error("Initialization failed")
+        return
     init_bot()
 
 
