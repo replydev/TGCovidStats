@@ -25,7 +25,6 @@ def send_message():
     logging.info("%d/%d notifications have been sent" % (i,len(users)))
 
 def update_data():
-    send_message()
     logging.info("Preparing to update data..")
     logging.info("Deleting charts folder...")
     delete_folder("charts/")
