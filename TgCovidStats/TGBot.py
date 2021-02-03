@@ -19,3 +19,6 @@ class TGBot:
     def start(self):
         self.updater.start_polling()
         self.updater.idle()
+    
+    def get_bot_instance(self):
+        return self.updater.bot

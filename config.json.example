@@ -3,6 +3,7 @@
     "database_password": "DATABASE_PASSWORD",
     "bot_token": "BOT_TOKEN",
     "bot_username": "BOT_USERNAME",
+    "database_name": "DATABASE_NAME",
     "update_time": "18:30",
     "italy_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json",
     "regions_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json",

@@ -14,6 +14,7 @@ class Config:
         self.force_download: bool = config_dict["force_download"]
         self.database_username: str = config_dict["database_username"]
         self.database_password: str = config_dict["database_password"]
+        self.database_name: str = config_dict["database_name"]
         self.update_time: str = config_dict["update_time"]
         
 def load_config(filepath: Path):
@@ -30,6 +31,7 @@ def create_sample_config(filepath: Path):
     sample_config = {
         "database_username": "DATABASE_USERNAME",
         "database_password": "DATABASE_PASSWORD",
+        "database_name": "DATABASE_NAME",
         "bot_token": "BOT_TOKEN",
         "bot_username": "BOT_USERNAME",
         "update_time": "18:30",

@@ -1,6 +1,6 @@
 from TgCovidStats.Utils import delete_folder,create_folder_if_not_exists,sha1_hex,delete_file,move_file
 from TgCovidStats.DataFetcher import DataFetcher
-from TgCovidStats.Memory import get_config
+from TgCovidStats.Memory import get_config,get_user_manager,get_bot
 
 import logging
 from time import sleep
@@ -14,7 +14,18 @@ def open_and_hash(filename: str):
 def calculate_hash(italy_filename: str,regions_filename: str,province_filename: str):
     return open_and_hash(italy_filename),open_and_hash(regions_filename),open_and_hash(province_filename)
 
+def send_message():
+    i = 0
+    users = get_user_manager().get_all_users()
+    bot = get_bot()
+    for user in users:
+        if user.send_notifications:
+            bot.send_message(chat_id=user.user_id, text="Ciao! 😄 Ho appena aggiornato i dati 📉 relativi all'epidemia, perché non dai un'occhiata?")
+            i += 1
+    logging.info("%d/%d notifications have been sent" % (i,len(users)))
+
 def update_data():
+    send_message()
     logging.info("Preparing to update data..")
     logging.info("Deleting charts folder...")
     delete_folder("charts/")
@@ -40,5 +51,8 @@ def update_data():
         move_file("data/italy_data_temp.json","data/italy_data.json")
         move_file("data/regions_data_temp.json","data/regions_data.json")
         move_file("data/province_data_temp.json","data/province_data.json")
-        logging.info("Updating done!")
+        logging.info("Updating done, sending message to users...")
+        send_message()
+
+
 

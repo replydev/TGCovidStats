@@ -9,8 +9,8 @@ from TgCovidStats.Config import Config
 from TgCovidStats.Utils import create_folder_if_not_exists
 from TgCovidStats.TGBot import TGBot
 from TgCovidStats.BotCommands import start_command,callback_handler
-from TgCovidStats.Memory import init_memory,get_config
-from TgCovidStats.Database.User_Manager import UserManager
+from TgCovidStats.Memory import init_memory,get_config,set_bot
+from TgCovidStats.UserManager import UserManager
 from TgCovidStats.Updater import update_data
 
 def init_daily_update_thread(config: Config):
@@ -46,6 +46,7 @@ def init_bot():
     bot = TGBot(get_config())
     bot.add_command_handler("/start",start_command)
     bot.add_callback_handler(callback_handler)
+    set_bot(bot.get_bot_instance())
     bot.start()
 
 def main():
