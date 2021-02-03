@@ -5,37 +5,44 @@ import dateparser
 import logging
 from pathlib import Path
 
-from TgCovidStats.Utils import sha1_hex
+from TgCovidStats.Utils import sha1_hex,get_region_name_from_code,get_province_name_from_code
 
 class ChartGenerator:
 
-    def __init__(self,data: list,attribute: str,bot_username,region_name):
+    def __init__(self,data: list,attribute: str,bot_username,region_name,province_name):
         self.data = data
         self.attribute = attribute
         self.bot_username = bot_username
-        if region_name is None:
-            self.region_name = "italia"
-        else:
-            self.region_name = region_name
+        self.region_name = region_name
+        self.province_name = province_name
         
     def get_dates(self):
         dates = []
-        for element in self.data:
-            if self.region_name != "italia":
-                if self.region_name.lower() == element["denominazione_regione"].lower():
+        if self.province_name != 0:
+            for element in self.data:
+                if self.province_name == element["codice_provincia"]:
                     dates.append(dateparser.parse(element["data"]))
-            else:
+        elif self.region_name != 0:
+            for element in self.data:
+                if self.region_name == element["codice_regione"]:
+                    dates.append(dateparser.parse(element["data"]))
+        else:
+            for element in self.data:
                 dates.append(dateparser.parse(element["data"]))
-            
         return dates
 
     def get_values(self):
         values = []
-        for element in self.data:
-            if self.region_name != "italia":
-                if self.region_name.lower() == element["denominazione_regione"].lower():
+        if self.province_name != 0:
+            for element in self.data:
+                if self.province_name == element["codice_provincia"]:
                     values.append(element[self.attribute])
-            else:
+        elif self.region_name != 0:
+            for element in self.data:
+                if self.region_name == element["codice_regione"]:
+                    values.append(element[self.attribute])
+        else:
+            for element in self.data:
                 values.append(element[self.attribute])
         return values
 
@@ -71,7 +78,12 @@ class ChartGenerator:
         else:
             return None
 
-        return title + " - " + self.region_name + " - " + self.bot_username
+        if self.region_name == 0:
+            return title + " - Italia - @" + self.bot_username
+        elif self.province_name == 0:
+            return title + " - " + get_region_name_from_code(self.region_name,self.data) + " - @" + self.bot_username  
+        else:
+            return title + " - " + get_province_name_from_code(self.province_name,self.data) + " - @" + self.bot_username
 
     def chart_exist(self,filename: str):
         p = Path("charts/")

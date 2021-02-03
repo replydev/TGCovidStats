@@ -1,6 +1,15 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 
+def get_wait_keyboard():
+    keyboard = [
+        [
+            InlineKeyboardButton("⏱ Attendi la generazione del grafico...",callback_data="waiting")
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    return reply_markup
+
 def get_start_keyboard():
     keyboard = [
         [
@@ -123,7 +132,7 @@ def get_abruzzo_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -139,7 +148,7 @@ def get_basilicata_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -154,7 +163,7 @@ def get_bolzano_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -177,7 +186,7 @@ def get_calabria_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -198,7 +207,7 @@ def get_campania_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -229,7 +238,7 @@ def get_emilia_romagna_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -247,7 +256,7 @@ def get_friuli_venezia_giulia_keyboard():
             InlineKeyboardButton("Nessuna provincia", callback_data="nessuna_provinca"),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -268,11 +277,11 @@ def get_lazio_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
-def get_liguaria_leyboard():
+def get_liguria_leyboard():
     keyboard = [
         [
             InlineKeyboardButton("Genova", callback_data="genova"),
@@ -288,7 +297,7 @@ def get_liguaria_leyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -326,7 +335,7 @@ def get_lombardia_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -347,7 +356,7 @@ def get_marche_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -365,7 +374,7 @@ def get_molise_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -395,7 +404,7 @@ def get_piemonte_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -421,7 +430,7 @@ def get_puglia_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -429,21 +438,15 @@ def get_sardegna_keyboard():
     keyboard = [
         [
             InlineKeyboardButton("Cagliari", callback_data="cagliari"),
-            InlineKeyboardButton(
-                "Carbonia-Iglesias", callback_data="carbonia_iglesias"
-            ),
-        ],
-        [
-            InlineKeyboardButton("Medio Campidano", callback_data="medio_campidano"),
             InlineKeyboardButton("Nuoro", callback_data="nuoro"),
         ],
         [
-            InlineKeyboardButton("Ogliastra", callback_data="ogliastra"),
             InlineKeyboardButton("Olbia-Tempio", callback_data="olbia_tempio"),
+            InlineKeyboardButton("Oristano", callback_data="oristano"),
         ],
         [
-            InlineKeyboardButton("Oristano", callback_data="oristano"),
             InlineKeyboardButton("Sassari", callback_data="sassari"),
+            InlineKeyboardButton("Sud Sardegna", callback_data="sud_sardegna"),
         ],
         [
             InlineKeyboardButton(
@@ -451,7 +454,7 @@ def get_sardegna_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -480,7 +483,7 @@ def get_sicilia_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -512,7 +515,7 @@ def get_toscana_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -527,7 +530,7 @@ def get_trento_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -543,7 +546,7 @@ def get_umbria_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -558,7 +561,7 @@ def get_valle_d_aosta_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
 
@@ -583,5 +586,6 @@ def get_veneto_keyboard():
             ),
         ],
     ]
-    reply_markup = InlineKeyboardButton(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
+

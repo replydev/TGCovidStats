@@ -11,8 +11,8 @@ class User(Base):
     __tablename__ = "user"
 
     user_id = Column(Integer,primary_key=True)
-    selected_region = Column(String(50),default="")
-    selected_province = Column(String(50),default="")
+    selected_region = Column(Integer,default=0)
+    selected_province = Column(Integer,default=0)
     send_notification = Column(Boolean,default=True)
 
 class UserManager:

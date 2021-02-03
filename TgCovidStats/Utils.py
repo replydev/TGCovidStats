@@ -22,4 +22,21 @@ def sha1_hex(s: str):
 def create_folder_if_not_exists(folder_path: str):
     p = Path(folder_path)
     p.mkdir(exist_ok=True)
+
+def get_region_from_province(province: int,data):
+    for element in data:
+        if element["codice_provincia"] == province:
+            return element["codice_regione"]
+    return None
+
+def get_region_name_from_code(code: int, l):
+    for element in l:
+        if element["codice_regione"] == code:
+            return element["denominazione_regione"]
+
+def get_province_name_from_code(code: int, l):
+    for element in l:
+        if element["codice_provincia"] == code:
+            return element["denominazione_provincia"]
+
     

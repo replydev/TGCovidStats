@@ -6,7 +6,7 @@ from TgCovidStats.Utils import download_file
 
 class DataFetcher:
 
-    def __init__(self,config: Config):
+    def __init__(self,config):
         data_folder = Path("data/")
         self.config = config
         self.italy_data_path = data_folder.joinpath("italy_data.json")
