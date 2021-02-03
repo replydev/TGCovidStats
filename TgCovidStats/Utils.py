@@ -23,6 +23,18 @@ def create_folder_if_not_exists(folder_path: str):
     p = Path(folder_path)
     p.mkdir(exist_ok=True)
 
+def delete_folder(folder_path: str):
+    shutil.rmtree(folder_path)
+
+def delete_file(file_path: str):
+    p = Path(file_path)
+    p.unlink() # remove file
+
+def move_file(from_path: str,to_path: str):
+    from_file = Path(from_path)
+    to_file = Path(to_path)
+    from_file.replace(to_file) # replace overwrite the file
+
 def get_region_from_province(province: int,data):
     for element in data:
         if element["codice_provincia"] == province:

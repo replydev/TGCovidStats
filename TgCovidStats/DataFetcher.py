@@ -17,14 +17,29 @@ class DataFetcher:
     def all_files_downloaded(self):
         return self.italy_data_path.exists() and self.regions_data_path.exists() and self.regions_data_path.exists()
 
-    def download(self):
-        if not self.all_files_downloaded() or self.config.force_download:
+    def download(self,temp_file=False):
+        if not self.all_files_downloaded() or self.config.force_download or temp_file:
             logging.info("Downloading italy data...")
-            download_file(self.config["italy_link"],self.italy_data_path)
+
+            if temp_file:
+                download_file(self.config.italy_link,Path("data/italy_data_temp.json"))
+            else:
+                download_file(self.config.italy_link,self.italy_data_path)
+
             logging.info("Downloading regions data...")
-            download_file(self.config["regions_link"],self.regions_data_path)
+
+            if temp_file:
+                download_file(self.config.regions_link,Path("data/regions_data_temp.json"))
+            else:
+                download_file(self.config.regions_link,self.regions_data_path)
+
             logging.info("Downloading province data...")
-            download_file(self.config["province_link"],self.province_data_path)
+
+            if temp_file:
+                download_file(self.config.province_link,Path("data/province_data_temp.json"))
+            else:
+                download_file(self.config.province_link,self.province_data_path)
+
             logging.info("Download done.")
         else:
             logging.info("Skipping download becouse data folder is already populated")

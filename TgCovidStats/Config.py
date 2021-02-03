@@ -14,9 +14,9 @@ class Config:
         self.force_download: bool = config_dict["force_download"]
         self.database_username: str = config_dict["database_username"]
         self.database_password: str = config_dict["database_password"]
+        self.update_time: str = config_dict["update_time"]
         
 def load_config(filepath: Path):
-    logging.info("Loading config...")
     try:
         with open(filepath) as f:
             return json.loads(f.read())
@@ -32,6 +32,7 @@ def create_sample_config(filepath: Path):
         "database_password": "DATABASE_PASSWORD",
         "bot_token": "BOT_TOKEN",
         "bot_username": "BOT_USERNAME",
+        "update_time": "18:30",
         "italy_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json",
         "regions_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json",
         "province_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json",
