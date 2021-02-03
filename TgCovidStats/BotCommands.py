@@ -34,12 +34,12 @@ def start_command(update: Update, context: CallbackContext):
 def callback_handler(update: Update, callback_context: CallbackContext):
     id = update.effective_user.id
     user_manager = get_user_manager()
-    user = user_manager.get_user(update.effective_user.id) #we are already sure that the user exists
+    user = user_manager.get_user(id) #we are already sure that the user exists
     
     query = update.callback_query
 
     if query.data == "waiting":
-        query.bot.answer_callback_query("⏱ Per favore attendi la generazione del grafico!")
+        query.answer(text="⏱ Per favore attendi la generazione del grafico!",show_alert=True)
     elif query.data == "totale_positivi" or \
         query.data == "variazione_totale_positivi" or \
         query.data == "dimessi_guariti" or \
@@ -60,7 +60,7 @@ def callback_handler(update: Update, callback_context: CallbackContext):
                 l = get_regions()
             else:
                 if query.data != "totale_casi":
-                    query.bot.answer_callback_query("‼️ Dati non disponibili per le provincie!")
+                    query.answer(text="‼️ Dati non disponibili per le provincie!",show_alert=True)
                     return
                 l = get_province()
             query.edit_message_reply_markup(reply_markup=get_wait_keyboard())
@@ -75,7 +75,7 @@ def callback_handler(update: Update, callback_context: CallbackContext):
         query.answer()
     elif query.data == "seleziona_provincia":
         if user.selected_region == 0:
-            query.bot.answer_callback_query("‼️ Seleziona prima una regione!")
+            query.answer(text="‼️ Seleziona prima una regione!",show_alert=True)
         else:
             #region_code = get_region_from_province(user.selected_province,get_province())
             region_code = user.selected_region
