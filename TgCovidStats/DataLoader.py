@@ -1,5 +1,5 @@
 from pathlib import Path
-import json
+import ujson
 import logging
 
 class DataLoader:
@@ -11,6 +11,6 @@ class DataLoader:
         with open(self.filepath) as f:
             j = f.read()
             f.close()
-            return json.loads(j)
+            return ujson.loads(j)
 
 

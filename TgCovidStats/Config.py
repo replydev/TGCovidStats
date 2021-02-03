@@ -1,5 +1,5 @@
 import logging
-import json
+import ujson
 from pathlib import Path
 
 from TgCovidStats.Utils import write_to_file
@@ -19,7 +19,7 @@ class Config:
 def load_config(filepath: Path):
     try:
         with open(filepath) as f:
-            return json.loads(f.read())
+            return ujson.loads(f.read())
     except FileNotFoundError:
         logging.info("File \"%s\" does not exists" % (filepath))
         create_sample_config(filepath)
@@ -38,6 +38,6 @@ def create_sample_config(filepath: Path):
         "province_link": "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json",
         "force_download": False,
     }
-    j = json.dumps(sample_config,indent=4)
+    j = ujson.dumps(sample_config,indent=4)
     write_to_file(j,filepath)
 

@@ -4,3 +4,4 @@ dateparser
 SQLAlchemy
 pyMySQL
 schedule
+ujson
