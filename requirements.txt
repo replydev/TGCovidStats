@@ -3,3 +3,4 @@ matplotlib
 dateparser
 SQLAlchemy
 pyMySQL
+schedule
