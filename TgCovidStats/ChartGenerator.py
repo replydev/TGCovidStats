@@ -21,13 +21,19 @@ class ChartGenerator:
         if self.province_name != 0:
             for element in self.data:
                 if self.province_name == element["codice_provincia"]:
+                    if element[self.attribute] is None:
+                        continue
                     dates.append(dateparser.parse(element["data"]))
         elif self.region_name != 0:
             for element in self.data:
                 if self.region_name == element["codice_regione"]:
+                    if element[self.attribute] is None:
+                        continue
                     dates.append(dateparser.parse(element["data"]))
         else:
             for element in self.data:
+                if element[self.attribute] is None:
+                    continue
                 dates.append(dateparser.parse(element["data"]))
         return dates
 
@@ -36,13 +42,19 @@ class ChartGenerator:
         if self.province_name != 0:
             for element in self.data:
                 if self.province_name == element["codice_provincia"]:
+                    if element[self.attribute] is None:
+                        continue
                     values.append(element[self.attribute])
         elif self.region_name != 0:
             for element in self.data:
                 if self.region_name == element["codice_regione"]:
+                    if element[self.attribute] is None:
+                        continue
                     values.append(element[self.attribute])
         else:
             for element in self.data:
+                if element[self.attribute] is None:
+                    continue
                 values.append(element[self.attribute])
         return values
 
