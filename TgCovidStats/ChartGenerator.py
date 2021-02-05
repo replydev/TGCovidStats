@@ -119,13 +119,17 @@ class ChartGenerator:
             return None
         
         fig, ax = plt.subplots()
+        last_value = values[len(values) - 1]
+        last_date = dates[len(dates) - 1].strftime("%d-%m-%Y")
         ax.plot(dates, values)
+        #ax.annotate("Ultimo valore: %.2f" % (last_value),xy=(10, 10), xycoords='figure pixels')
+        #ax.annotate("Ultimo aggiornamento: %s" % (last_date.strftime("%d-%m-%Y")),xy=(370, 10), xycoords='figure pixels')
         ax.set(xlabel='Data', ylabel='Valore', title=chart_title)
         ax.grid()
 
         path = "charts/" + charts_filename
         fig.savefig(path)
-        return path
+        return path,last_value,last_date
         #plt.show()
 
         

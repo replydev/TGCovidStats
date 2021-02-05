@@ -60,7 +60,7 @@ def callback_handler(update: Update, callback_context: CallbackContext):
         query.data == "terapia_intensiva" or \
         query.data == "totale_ospedalizzati" or \
         query.data == "isolamento_domiciliare":
-            if user.selected_region == 0:
+            if user.selected_region == 0: # TODO User could be null if it send a callback without calling /start command
                 l = get_italy()
             elif user.selected_province == 0:
                 l = get_regions()
@@ -71,8 +71,8 @@ def callback_handler(update: Update, callback_context: CallbackContext):
                 l = get_province()
             query.edit_message_reply_markup(reply_markup=get_wait_keyboard())
             chart_generator = ChartGenerator(l,query.data,get_config().bot_username,user.selected_region,user.selected_province)
-            filename = chart_generator.gen_chart()
-            query.edit_message_media(media=InputMediaPhoto(media=open(filename,'rb')),reply_markup=get_start_keyboard())
+            filename,last_value,last_date = chart_generator.gen_chart()
+            query.edit_message_media(media=InputMediaPhoto(media=open(filename,'rb')),caption="📉 Ultimo dato: %.2f\n📅 Data grafico: %s" % (last_value,last_date),reply_markup=get_start_keyboard())
             query.answer()
 
     
