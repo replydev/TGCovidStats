@@ -4,8 +4,9 @@ import numpy as np
 import dateparser
 import logging
 from pathlib import Path
+import ujson
 
-from TgCovidStats.Utils import sha1_hex,get_region_name_from_code,get_province_name_from_code
+from TgCovidStats import Utils
 
 class ChartGenerator:
 
@@ -93,30 +94,30 @@ class ChartGenerator:
         if self.region_name == 0:
             return title + " - Italia - @" + self.bot_username
         elif self.province_name == 0:
-            return title + " - " + get_region_name_from_code(self.region_name,self.data) + " - @" + self.bot_username  
+            return title + " - " + Utils.get_region_name_from_code(self.region_name,self.data) + " - @" + self.bot_username  
         else:
-            return title + " - " + get_province_name_from_code(self.province_name,self.data) + " - @" + self.bot_username
+            return title + " - " + Utils.get_province_name_from_code(self.province_name,self.data) + " - @" + self.bot_username
+    
+    def read_values_from_cache(self,chart_folder_path: Path):
+        json = Utils.read_file_content(chart_folder_path.joinpath("data.json"))
+        d = ujson.loads(json)
+        return d["last_value"],d["last_date"]
 
-    def chart_exist(self,filename: str):
-        p = Path("charts/")
-        if not p.exists():
-            return False
-        return p.joinpath(filename).exists()
 
     def gen_chart(self):
         chart_title = self.get_title()
-        chart_hash = sha1_hex(chart_title)
-        charts_filename = chart_hash + ".png"
-        dates = self.get_dates()
-        values = self.get_values()
-        last_value = values[len(values) - 1]
-        last_date = dates[len(dates) - 1].strftime("%d-%m-%Y")
-        if self.chart_exist(charts_filename):
+        chart_hash = Utils.sha1_hex(chart_title)
+        chart_folder_path = Path("cache").joinpath(chart_hash)
+        charts_image_path = chart_folder_path.joinpath("chart.png")
+        if chart_folder_path.exists():
+            last_value,last_date = self.read_values_from_cache(chart_folder_path)
             logging.debug("Chart already cached: %s" % (chart_title))
-            return "charts/" + charts_filename,last_value,last_date
+            return charts_image_path,last_value,last_date
         
         logging.debug("Generating chart: %s" % (self.attribute))
-        
+        Utils.create_folder_if_not_exists(chart_folder_path)
+        dates = self.get_dates()
+        values = self.get_values()
 
         if len(dates) != len(values):
             return None,None,None
@@ -127,10 +128,16 @@ class ChartGenerator:
         #ax.annotate("Ultimo aggiornamento: %s" % (last_date.strftime("%d-%m-%Y")),xy=(370, 10), xycoords='figure pixels')
         ax.set(xlabel='Data', ylabel='Valore', title=chart_title)
         ax.grid()
-
-        path = "charts/" + charts_filename
-        fig.savefig(path)
-        return path,last_value,last_date
+        last_value = values[len(values) - 1]
+        last_date = dates[len(dates) - 1].strftime("%d-%m-%Y")
+        fig.savefig(charts_image_path)
+        d = {
+            "last_value": last_value,
+            "last_date": last_date,
+        }
+        cache_json = ujson.dumps(d)
+        Utils.write_to_file(cache_json,chart_folder_path.joinpath("data.json"))
+        return charts_image_path,last_value,last_date
         #plt.show()
 
         

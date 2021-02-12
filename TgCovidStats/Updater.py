@@ -27,8 +27,8 @@ def send_message():
 def update_data():
     logging.info("Preparing to update data..")
     logging.info("Deleting charts folder...")
-    delete_folder("charts/")
-    create_folder_if_not_exists("charts/")
+    delete_folder("cache/")
+    create_folder_if_not_exists("cache/")
     logging.info("Calculating data hash...")
     italy_hash,regions_hash,province_hash = calculate_hash("data/italy_data.json","data/regions_data.json","data/province_data.json")
     data_fetcher = DataFetcher(get_config())

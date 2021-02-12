@@ -25,7 +25,7 @@ def pending_daily_thread():
 
 def create_folders():
     create_folder_if_not_exists("data/")
-    create_folder_if_not_exists("charts/")
+    create_folder_if_not_exists("cache/")
     create_folder_if_not_exists("logs/")
 
 def init_logger():

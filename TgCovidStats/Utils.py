@@ -4,6 +4,17 @@ import shutil
 import logging
 import hashlib
 
+def read_file_content(path: Path):
+    try:
+        with open(path) as f:
+            logging.debug("Reading file: {}".format(path))
+            content = f.read()
+            f.close()
+            return content
+    except:
+        logging.error("Failed to read file: {}".format(path))
+        return None
+
 def download_file(url: str, filename: Path):
     logging.debug("Downloading %s from %s" % (filename,url))
     with urlopen(url) as response, open(filename, 'wb') as out_file:
