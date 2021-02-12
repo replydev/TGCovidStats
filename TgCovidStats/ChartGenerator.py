@@ -107,20 +107,21 @@ class ChartGenerator:
         chart_title = self.get_title()
         chart_hash = sha1_hex(chart_title)
         charts_filename = chart_hash + ".png"
-        if self.chart_exist(charts_filename):
-            logging.debug("Chart already cached: %s" % (chart_title))
-            return "charts/" + charts_filename
-        
-        logging.debug("Generating chart: %s" % (self.attribute))
         dates = self.get_dates()
         values = self.get_values()
-
-        if len(dates) != len(values):
-            return None
-        
-        fig, ax = plt.subplots()
         last_value = values[len(values) - 1]
         last_date = dates[len(dates) - 1].strftime("%d-%m-%Y")
+        if self.chart_exist(charts_filename):
+            logging.debug("Chart already cached: %s" % (chart_title))
+            return "charts/" + charts_filename,last_value,last_date
+        
+        logging.debug("Generating chart: %s" % (self.attribute))
+        
+
+        if len(dates) != len(values):
+            return None,None,None
+        
+        fig, ax = plt.subplots()
         ax.plot(dates, values)
         #ax.annotate("Ultimo valore: %.2f" % (last_value),xy=(10, 10), xycoords='figure pixels')
         #ax.annotate("Ultimo aggiornamento: %s" % (last_date.strftime("%d-%m-%Y")),xy=(370, 10), xycoords='figure pixels')

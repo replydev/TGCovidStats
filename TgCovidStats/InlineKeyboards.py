@@ -1,5 +1,8 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
+start_value = 0
+start_date = ""
+
 
 def get_wait_keyboard():
     keyboard = [
@@ -10,8 +13,22 @@ def get_wait_keyboard():
     reply_markup = InlineKeyboardMarkup(keyboard)
     return reply_markup
 
-def get_start_keyboard():
+def get_start_keyboard(last_value: str = None,last_date: str = None):
+    if last_value is not None:
+        global start_value
+        start_value = last_value
+    if last_date is not None:
+        global start_date
+        start_date = last_date
     keyboard = [
+        [
+            InlineKeyboardButton(
+                start_value, callback_data="no_action"
+            ),
+            InlineKeyboardButton(
+                start_date, callback_data="no_action"
+            ),
+        ],
         [
             InlineKeyboardButton(
                 "⚠ Attualmente contagiati", callback_data="totale_positivi"
@@ -592,7 +609,7 @@ def get_veneto_keyboard():
 def get_settings_keyboard(notify: bool):
     keyboard = [
         [
-            InlineKeyboardButton("🔔 Invia notifiche",callback_data="useless"),
+            InlineKeyboardButton("🔔 Invia notifiche",callback_data="no_action"),
         ],
         [
             InlineKeyboardButton(text = "✅ Si" if notify else "Si",callback_data="enable_notifications"),
