@@ -19,8 +19,8 @@ def send_message():
     users = get_user_manager().get_all_users()
     bot = get_bot()
     for user in users:
-        if user.send_notifications:
-            bot.send_message(chat_id=user.user_id, text="Ciao! 😄 Ho appena aggiornato i dati 📉 relativi all'epidemia, perché non dai un'occhiata?")
+        if user["send_notifications"]:
+            bot.send_message(chat_id=user["id"], text="Ciao! 😄 Ho appena aggiornato i dati 📉 relativi all'epidemia, perché non dai un'occhiata?")
             i += 1
     logging.info("%d/%d notifications have been sent" % (i,len(users)))
 

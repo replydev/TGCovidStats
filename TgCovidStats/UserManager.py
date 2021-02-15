@@ -25,15 +25,26 @@ class UserManager:
         Base.metadata.create_all(engine)
 
     def get_all_users(self):
+        users = []
         session = self.Session()
         try:
-            users = session.query(User).all()
+            users_query = session.query(User).all()
+            for user in users_query:
+                users.append(
+                    {
+                        "id": user.id,
+                        "selected_region": user.selected_region,
+                        "selected_province": user.selected_province,
+                        "send_notifications": user.send_notifications,
+                    }
+                )
         except Exception as e:
             logging.error("An exception has occurred during query: {}".format(e))
             session.rollback()
             return None
         finally:
             session.close()
+            self.Session.remove()
             return users
 
     def insert_user(self, user_id: int):
@@ -51,6 +62,7 @@ class UserManager:
         finally:
             session.commit()
             session.close()
+            self.Session.remove()
 
     def user_exists(self, user_id: int):
         return self.get_user(user_id) is not None
@@ -65,6 +77,7 @@ class UserManager:
             return None
         finally:
             session.close()
+            self.Session.remove()
             return user
 
     def update_region(self, user_id: int, value: str):
@@ -78,6 +91,7 @@ class UserManager:
         finally:
             session.commit()
             session.close()
+            self.Session.remove()
 
     def update_province(self, user_id: int, value: str):
         session = self.Session()
@@ -90,6 +104,7 @@ class UserManager:
         finally:
             session.commit()
             session.close()
+            self.Session.remove()
 
     def update_send_notifications(self, user_id: int, value: bool):
         session = self.Session()
@@ -106,3 +121,4 @@ class UserManager:
         finally:
             session.commit()
             session.close()
+            self.Session.remove()
