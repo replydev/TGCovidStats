@@ -32,7 +32,7 @@ class UserManager:
             for user in users_query:
                 users.append(
                     {
-                        "id": user.id,
+                        "id": user.user_id,
                         "selected_region": user.selected_region,
                         "selected_province": user.selected_province,
                         "send_notifications": user.send_notifications,
