@@ -34,8 +34,8 @@ def start_command(update: Update, context: CallbackContext):
     user_manager.update_region(id,0)
     user_manager.update_province(id,0)
     chart_generator = ChartGenerator(get_italy(),"totale_casi",get_config().bot_username,0,0)
-    filename = chart_generator.gen_chart()
-    update.message.reply_photo(photo=open(filename,'rb'), reply_markup=get_start_keyboard())
+    filename,last_value,last_date = chart_generator.gen_chart()
+    update.message.reply_photo(photo=open(filename,'rb'), reply_markup=get_start_keyboard("📉 {0:,.2f}".format(last_value), "📅 %s" % (last_date)))
 
 def callback_handler(update: Update, callback_context: CallbackContext):
     id = update.effective_user.id
@@ -72,7 +72,8 @@ def callback_handler(update: Update, callback_context: CallbackContext):
             query.edit_message_reply_markup(reply_markup=get_wait_keyboard())
             chart_generator = ChartGenerator(l,query.data,get_config().bot_username,user.selected_region,user.selected_province)
             filename,last_value,last_date = chart_generator.gen_chart()
-            query.edit_message_media(media=InputMediaPhoto(media=open(filename,'rb')),caption="📉 Ultimo dato: %.2f\n📅 Data grafico: %s" % (last_value,last_date),reply_markup=get_start_keyboard())
+            #query.edit_message_caption(caption="📉 %.2f\n📅 %s" % (last_value,last_date),)
+            query.edit_message_media(media=InputMediaPhoto(media=open(filename,'rb')),reply_markup=get_start_keyboard("📉 {0:,.2f}".format(last_value), "📅 %s" % (last_date)))
             query.answer()
 
     
@@ -397,4 +398,6 @@ def callback_handler(update: Update, callback_context: CallbackContext):
         update_user(id,5,24,query)
     elif query.data == "nessuna_provincia":
         update_user(id,user.selected_region,0,query)
+    elif query.data == "no_action":
+        query.answer()
     

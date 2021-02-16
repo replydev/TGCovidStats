@@ -19,16 +19,16 @@ def send_message():
     users = get_user_manager().get_all_users()
     bot = get_bot()
     for user in users:
-        if user.send_notifications:
-            bot.send_message(chat_id=user.user_id, text="Ciao! 😄 Ho appena aggiornato i dati 📉 relativi all'epidemia, perché non dai un'occhiata?")
+        if user["send_notifications"]:
+            bot.send_message(chat_id=user["id"], text="Ciao! 😄 Ho appena aggiornato i dati 📉 relativi all'epidemia, perché non dai un'occhiata?")
             i += 1
     logging.info("%d/%d notifications have been sent" % (i,len(users)))
 
 def update_data():
     logging.info("Preparing to update data..")
     logging.info("Deleting charts folder...")
-    delete_folder("charts/")
-    create_folder_if_not_exists("charts/")
+    delete_folder("cache/")
+    create_folder_if_not_exists("cache/")
     logging.info("Calculating data hash...")
     italy_hash,regions_hash,province_hash = calculate_hash("data/italy_data.json","data/regions_data.json","data/province_data.json")
     data_fetcher = DataFetcher(get_config())
