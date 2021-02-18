@@ -1,6 +1,6 @@
 from TgCovidStats.Utils import delete_folder,create_folder_if_not_exists,sha1_hex,delete_file,move_file
 from TgCovidStats.DataFetcher import DataFetcher
-from TgCovidStats.Memory import get_config,get_user_manager,get_bot
+from TgCovidStats.Memory import get_config,get_user_manager,get_bot,load_json
 
 import logging
 from time import sleep
@@ -51,6 +51,7 @@ def update_data():
         move_file("data/regions_data_temp.json","data/regions_data.json")
         move_file("data/province_data_temp.json","data/province_data.json")
         logging.info("Updating done, sending message to users...")
+        load_json()
         send_message()
 
 

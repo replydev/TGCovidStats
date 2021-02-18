@@ -6,6 +6,17 @@ from TgCovidStats.DataFetcher import DataFetcher
 from TgCovidStats.UserManager import UserManager
 from TgCovidStats.Config import load_config,Config
 
+def load_json():
+    global italy
+    global regions
+    global province
+    logging.info("Loading Italy JSON...")
+    italy = DataLoader(Path("data/italy_data.json")).load()
+    logging.info("Loading Regions JSON...")
+    regions = DataLoader(Path("data/regions_data.json")).load()
+    logging.info("Loading Province JSON...")
+    province = DataLoader(Path("data/province_data.json")).load()
+
 def init_memory():
     global user_manager
     global italy
@@ -21,12 +32,7 @@ def init_memory():
     user_manager = UserManager(config.database_username,config.database_password,config.database_name)
     data_fetcher = DataFetcher(config)
     data_fetcher.download()
-    logging.info("Loading Italy JSON...")
-    italy = DataLoader(Path("data/italy_data.json")).load()
-    logging.info("Loading Regions JSON...")
-    regions = DataLoader(Path("data/regions_data.json")).load()
-    logging.info("Loading Province JSON...")
-    province = DataLoader(Path("data/province_data.json")).load()
+    load_json()
     return True
     
 
