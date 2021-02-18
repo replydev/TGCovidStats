@@ -19,7 +19,7 @@ class User(Base):
 
 class UserManager:
     def __init__(self, username: str, password: str, database: str):
-        engine = create_engine("mysql+pymysql://{USER}:{PASS}@localhost/{DB}?host=localhost?port=3306".format(USER=username, PASS=password, DB=database),poolclass=QueuePool,)
+        engine = create_engine("mysql+pymysql://{USER}:{PASS}@localhost/{DB}?host=localhost?port=3306".format(USER=username, PASS=password, DB=database),poolclass=QueuePool,pool_recycle=3600)
         session_factory = sessionmaker(bind=engine)
         self.Session = scoped_session(session_factory)
         Base.metadata.create_all(engine)
