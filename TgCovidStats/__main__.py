@@ -6,7 +6,7 @@ import datetime
 import schedule
 
 from TgCovidStats.Config import Config
-from TgCovidStats.Utils import create_folder_if_not_exists
+from TgCovidStats.Utils import create_folder_if_not_exists,delete_folder
 from TgCovidStats.TGBot import TGBot
 from TgCovidStats.BotCommands import start_command,callback_handler
 from TgCovidStats.Memory import init_memory,get_config,set_bot
@@ -24,8 +24,9 @@ def pending_daily_thread():
         sleep(25)
 
 def create_folders():
-    create_folder_if_not_exists("data/")
+    delete_folder("cache/")
     create_folder_if_not_exists("cache/")
+    create_folder_if_not_exists("data/")
     create_folder_if_not_exists("logs/")
 
 def init_logger():
